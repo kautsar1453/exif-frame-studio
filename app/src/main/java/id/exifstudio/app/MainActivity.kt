@@ -1,101 +1,148 @@
 package id.exifstudio.app
 
 import android.app.Activity
-import android.content.ContentValues
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.util.Base64
-import android.webkit.JavascriptInterface
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 
 class MainActivity : Activity() {
-    private var fileUploadCallback: ValueCallback<Array<Uri>>? = null
+    private lateinit var webView: WebView
+    private var uploadMessage: ValueCallback<Array<Uri>>? = null
+    private val FILE_CHOOSER_REQUEST_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val webView = WebView(this).apply {
+
+        webView = WebView(this).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.allowFileAccess = true
             settings.allowContentAccess = true
-            settings.useWideViewPort = true
-            settings.loadWithOverviewMode = true
+            settings.cacheMode = WebSettings.LOAD_DEFAULT
             webViewClient = WebViewClient()
-            addJavascriptInterface(AndroidBridge(), "AndroidBridge")
+
             webChromeClient = object : WebChromeClient() {
                 override fun onShowFileChooser(
-                    vw: WebView?,
-                    cb: ValueCallback<Array<Uri>>?,
-                    params: FileChooserParams?
+                    webView: WebView?,
+                    filePathCallback: ValueCallback<Array<Uri>>?,
+                    fileChooserParams: FileChooserParams?
                 ): Boolean {
-                    fileUploadCallback?.onReceiveValue(null)
-                    fileUploadCallback = cb
-                    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
+                    uploadMessage?.onReceiveValue(null)
+                    uploadMessage = filePathCallback
+
+                    // 1. Targetkan Galeri Lokal HP (MediaStore Internal)
+                    val localGalleryIntent = Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    ).apply {
                         type = "image/*"
+                        putExtra(Intent.EXTRA_LOCAL_ONLY, true)
                         putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                     }
-                    startActivityForResult(Intent.createChooser(intent, "Pilih Foto"), 1001)
-                    return true
+
+                    // 2. Opsi Penyimpanan Internal HP (Non-Cloud)
+                    val internalStorageIntent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "image/*"
+                        putExtra(Intent.EXTRA_LOCAL_ONLY, true)
+                        putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val primaryRoot = DocumentsContract.buildRootUri(
+                                "com.android.externalstorage.documents",
+                                "primary"
+                            )
+                            putExtra(DocumentsContract.EXTRA_INITIAL_URI, primaryRoot)
+                        }
+                    }
+
+                    // 3. Cari aplikasi Galeri Bawaan HP dan kecualikan Google Photos
+                    val localGalleries = packageManager.queryIntentActivities(localGalleryIntent, 0)
+                        .filter { !it.activityInfo.packageName.contains("com.google.android.apps.photos") }
+
+                    val primaryIntent = if (localGalleries.isNotEmpty()) {
+                        val oemGallery = localGalleries[0].activityInfo
+                        Intent(localGalleryIntent).apply {
+                            component = ComponentName(oemGallery.packageName, oemGallery.name)
+                        }
+                    } else {
+                        internalStorageIntent
+                    }
+
+                    val chooser = Intent.createChooser(primaryIntent, "Pilih Foto dari Galeri HP").apply {
+                        putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(internalStorageIntent))
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            putExtra(
+                                Intent.EXTRA_EXCLUDE_COMPONENTS,
+                                arrayOf(
+                                    ComponentName(
+                                        "com.google.android.apps.photos",
+                                        "com.google.android.apps.photos.picker.external.ExternalPickerActivity"
+                                    ),
+                                    ComponentName(
+                                        "com.google.android.apps.photos",
+                                        "com.google.android.apps.photos.home.HomeActivity"
+                                    )
+                                )
+                            )
+                        }
+                    }
+
+                    return try {
+                        startActivityForResult(chooser, FILE_CHOOSER_REQUEST_CODE)
+                        true
+                    } catch (e: Exception) {
+                        uploadMessage = null
+                        false
+                    }
                 }
             }
         }
+
         setContentView(webView)
         webView.loadUrl("file:///android_asset/index.html")
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1001) {
-            val results = mutableListOf<Uri>()
+        if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
+            val callback = uploadMessage
+            uploadMessage = null
+            if (callback == null) return
+
             if (resultCode == RESULT_OK && data != null) {
-                val clip = data.clipData
-                if (clip != null) {
-                    for (i in 0 until clip.itemCount) {
-                        clip.getItemAt(i).uri?.let { results.add(it) }
+                val uris = mutableListOf<Uri>()
+                val clipData = data.clipData
+                if (clipData != null) {
+                    for (i in 0 until clipData.itemCount) {
+                        clipData.getItemAt(i).uri?.let { uris.add(it) }
                     }
                 } else {
-                    data.data?.let { results.add(it) }
+                    data.data?.let { uris.add(it) }
                 }
+                callback.onReceiveValue(if (uris.isNotEmpty()) uris.toTypedArray() else null)
+            } else {
+                callback.onReceiveValue(null)
             }
-            fileUploadCallback?.onReceiveValue(if (results.isNotEmpty()) results.toTypedArray() else null)
-            fileUploadCallback = null
+            return
         }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
-    inner class AndroidBridge {
-        @JavascriptInterface
-        fun saveBase64Image(dataUrl: String, fileName: String, mimeType: String) {
-            try {
-                val base64Part = dataUrl.substringAfter(",")
-                val bytes = Base64.decode(base64Part, Base64.DEFAULT)
-                val values = ContentValues().apply {
-                    put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-                    put(MediaStore.Images.Media.MIME_TYPE, mimeType)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/EXIFStudio")
-                    }
-                }
-                val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                uri?.let {
-                    contentResolver.openOutputStream(it)?.use { out -> out.write(bytes) }
-                    runOnUiThread {
-                        Toast.makeText(this@MainActivity, "Tersimpan di Galeri: Pictures/EXIFStudio/$fileName", Toast.LENGTH_LONG).show()
-                    }
-                }
-            } catch (e: Exception) {
-                runOnUiThread {
-                    Toast.makeText(this@MainActivity, "Gagal menyimpan: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
         }
     }
 }
