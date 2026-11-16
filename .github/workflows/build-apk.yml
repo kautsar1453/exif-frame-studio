@@ -18,17 +18,36 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Siapkan Lisensi Android SDK
+      - name: Setup Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Siapkan Lisensi & Konfigurasi Proyek
         run: |
           mkdir -p "$ANDROID_HOME/licenses"
           printf "\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
           printf "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
+          PROJECT_DIR="."
+          if [ -f "EXIF-Frame-Studio-Android/settings.gradle" ]; then
+            PROJECT_DIR="EXIF-Frame-Studio-Android"
+          fi
+
+          echo "sdk.dir=$ANDROID_HOME" > "$PROJECT_DIR/local.properties"
+          if [ ! -f "$PROJECT_DIR/gradle.properties" ]; then
+            printf "android.useAndroidX=true\nandroid.enableJetifier=true\norg.gradle.jvmargs=-Xmx2048m\n" > "$PROJECT_DIR/gradle.properties"
+          fi
+
       - name: Kompilasi Debug APK
-        run: gradle assembleDebug
+        run: |
+          if [ -f "EXIF-Frame-Studio-Android/settings.gradle" ]; then
+            cd EXIF-Frame-Studio-Android
+          fi
+          gradle assembleDebug --stacktrace
 
       - name: Unggah File APK
         uses: actions/upload-artifact@v4
         with:
           name: EXIF-Frame-Studio-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: "**/build/outputs/apk/debug/app-debug.apk"
