@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#090a0d" />
   <title>EXIF Frame Studio</title>
   <style>
     :root {
-      --bg-app: #f3f4f6;
-      --bg-surface: #ffffff;
-      --bg-subtle: #f9fafb;
-      --bg-stage: #14161b;
-      --border: #e5e7eb;
-      --border-strong: #d1d5db;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --primary-soft: #eff6ff;
-      --danger: #dc2626;
-      --danger-soft: #fef2f2;
+      --bg-app: #090a0d;
+      --bg-surface: #12141a;
+      --bg-subtle: #181b23;
+      --bg-elevated: #1f232e;
+      --bg-stage: #060709;
+      --border: #232734;
+      --border-strong: #32384a;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-soft: rgba(59, 130, 246, 0.16);
+      --danger: #f87171;
+      --danger-soft: rgba(239, 68, 68, 0.14);
       --radius-lg: 16px;
       --radius-md: 12px;
       --radius-sm: 10px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -36,7 +35,7 @@
 
     html, body {
       height: 100%;
-      background-color: #e5e7eb;
+      background-color: #050608;
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       font-size: 15px;
@@ -51,17 +50,20 @@
       background: var(--bg-app);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+      border-left: 1px solid #161922;
+      border-right: 1px solid #161922;
     }
 
-    /* Header */
+    /* Top Header */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
       height: 62px;
       padding: 0 14px;
-      background: var(--bg-surface);
+      background: rgba(18, 20, 26, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -80,12 +82,13 @@
       width: 38px;
       height: 38px;
       border-radius: 11px;
-      background: #111827;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
     }
 
     .brand-title {
@@ -114,7 +117,7 @@
       padding: 0 15px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-strong);
-      background: var(--bg-surface);
+      background: var(--bg-elevated);
       color: var(--text-main);
       font-size: 14px;
       font-weight: 600;
@@ -128,7 +131,7 @@
     }
 
     .btn:disabled {
-      opacity: 0.45;
+      opacity: 0.4;
       pointer-events: none;
     }
 
@@ -136,21 +139,22 @@
       background: var(--primary);
       border-color: var(--primary);
       color: #ffffff;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.28);
     }
 
     .btn-primary:active {
       background: var(--primary-hover);
     }
 
-    .btn-dark {
-      background: #111827;
-      border-color: #111827;
-      color: #ffffff;
+    .btn-light {
+      background: #f8fafc;
+      border-color: #f8fafc;
+      color: #090a0d;
     }
 
     .btn-danger-soft {
       background: var(--danger-soft);
-      border-color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.3);
       color: var(--danger);
     }
 
@@ -166,6 +170,7 @@
     .stage-wrapper {
       background: var(--bg-stage);
       padding: 16px 14px 14px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -174,10 +179,10 @@
     .empty-upload-box {
       width: 100%;
       min-height: 230px;
-      border: 2px dashed #4b5563;
+      border: 2px dashed #2e3446;
       border-radius: 18px;
-      background: #1e2128;
-      color: #f3f4f6;
+      background: #0f1117;
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -190,26 +195,26 @@
     }
 
     .empty-upload-box:active {
-      border-color: #60a5fa;
-      background: #252a34;
+      border-color: var(--primary);
+      background: #141822;
     }
 
     .plus-circle {
       width: 64px;
       height: 64px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      background: rgba(59, 130, 246, 0.12);
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
+      color: #60a5fa;
     }
 
     .empty-title {
       font-size: 15px;
       font-weight: 600;
-      color: #f9fafb;
+      color: var(--text-main);
     }
 
     .canvas-container {
@@ -229,7 +234,7 @@
       width: auto;
       height: auto;
       border-radius: 4px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.75);
       cursor: pointer;
       touch-action: none;
     }
@@ -259,14 +264,14 @@
       height: 54px;
       border-radius: 11px;
       overflow: hidden;
-      border: 2.5px solid transparent;
+      border: 2.5px solid #262b38;
       flex-shrink: 0;
       cursor: pointer;
-      background: #262932;
+      background: #161922;
     }
 
     .thumb-item.selected {
-      border-color: #3b82f6;
+      border-color: var(--primary);
     }
 
     .thumb-item img {
@@ -284,7 +289,7 @@
       height: 20px;
       border-radius: 50%;
       border: none;
-      background: rgba(17, 24, 39, 0.85);
+      background: rgba(9, 10, 13, 0.88);
       color: #ffffff;
       font-size: 12px;
       font-weight: 700;
@@ -331,8 +336,8 @@
 
     .tab-btn.active {
       background: var(--primary-soft);
-      border-color: #bfdbfe;
-      color: var(--primary);
+      border-color: rgba(59, 130, 246, 0.45);
+      color: #60a5fa;
     }
 
     /* Tab Panels */
@@ -356,7 +361,6 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 16px;
-      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -425,11 +429,43 @@
     .choice-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: var(--primary);
+      color: #60a5fa;
     }
 
     .choice-btn.active small {
-      color: var(--primary);
+      color: #93c5fd;
+    }
+
+    /* Brand Logo Grid */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .brand-chip {
+      min-height: 48px;
+      padding: 8px 6px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .brand-chip.active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: #60a5fa;
     }
 
     /* Sliders */
@@ -451,7 +487,7 @@
     .value-pill {
       font-size: 13px;
       font-weight: 700;
-      color: var(--primary);
+      color: #60a5fa;
       background: var(--primary-soft);
       padding: 3px 10px;
       border-radius: 999px;
@@ -461,7 +497,7 @@
       -webkit-appearance: none;
       width: 100%;
       height: 8px;
-      background: #e5e7eb;
+      background: #252a37;
       border-radius: 999px;
       outline: none;
     }
@@ -472,8 +508,8 @@
       height: 26px;
       border-radius: 50%;
       background: var(--primary);
-      border: 3px solid #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      border: 3px solid #f8fafc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       cursor: pointer;
     }
 
@@ -503,14 +539,14 @@
     .swatch-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: var(--primary);
+      color: #60a5fa;
     }
 
     .color-dot {
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
       flex-shrink: 0;
     }
 
@@ -521,6 +557,7 @@
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border);
       background: var(--bg-subtle);
+      color: var(--text-main);
       font-size: 13px;
       font-weight: 600;
       display: inline-flex;
@@ -576,9 +613,13 @@
       transition: border-color 0.15s ease, background-color 0.15s ease;
     }
 
+    .text-input::placeholder {
+      color: #4b5563;
+    }
+
     .text-input:focus {
       border-color: var(--primary);
-      background: #ffffff;
+      background: #1d212b;
     }
 
     /* Separator Chips */
@@ -605,7 +646,7 @@
     .sep-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: var(--primary);
+      color: #60a5fa;
     }
 
     .sep-custom-input {
@@ -619,6 +660,11 @@
       font-size: 14px;
       font-weight: 700;
       color: var(--text-main);
+      outline: none;
+    }
+
+    .sep-custom-input:focus {
+      border-color: var(--primary);
     }
 
     /* Toggle Switch */
@@ -653,7 +699,7 @@
     .slider-switch {
       position: absolute;
       inset: 0;
-      background: #d1d5db;
+      background: #2b3040;
       border-radius: 999px;
       transition: 0.2s;
     }
@@ -665,9 +711,9 @@
       height: 24px;
       left: 3px;
       top: 3px;
-      background: #ffffff;
+      background: #f8fafc;
       border-radius: 50%;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
       transition: 0.2s;
     }
 
@@ -702,7 +748,7 @@
     .pos-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: var(--primary);
+      color: #60a5fa;
     }
 
     /* Fullscreen Preview Modal */
@@ -710,7 +756,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: #090b0e;
+      background: #050608;
       display: none;
       flex-direction: column;
     }
@@ -722,8 +768,8 @@
     .preview-topbar {
       height: 64px;
       padding: 0 14px;
-      background: rgba(17, 20, 26, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 17, 23, 0.95);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -734,8 +780,8 @@
       min-height: 46px;
       padding: 0 16px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-elevated);
       color: #ffffff;
       font-size: 14px;
       font-weight: 600;
@@ -764,7 +810,7 @@
       max-height: 100%;
       object-fit: contain;
       border-radius: 4px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
       transition: transform 0.15s ease;
     }
 
@@ -777,8 +823,8 @@
 
     .preview-bottombar {
       padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
-      background: rgba(17, 20, 26, 0.95);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 17, 23, 0.95);
+      border-top: 1px solid var(--border);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
@@ -789,7 +835,7 @@
       position: fixed;
       inset: 0;
       z-index: 120;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.72);
       display: none;
       align-items: flex-end;
       justify-content: center;
@@ -802,17 +848,19 @@
     .bottom-sheet {
       width: 100%;
       max-width: 480px;
-      background: #ffffff;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-strong);
       border-radius: 22px 22px 0 0;
       padding: 18px 16px calc(20px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 -10px 34px rgba(0, 0, 0, 0.55);
     }
 
     .sheet-preview-wrap {
-      background: #14161b;
+      background: var(--bg-stage);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 12px;
       display: flex;
@@ -829,7 +877,7 @@
 
     .sheet-hint {
       font-size: 12px;
-      color: #d1d5db;
+      color: var(--text-muted);
       text-align: center;
     }
 
@@ -840,13 +888,14 @@
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       z-index: 200;
-      background: #111827;
-      color: #ffffff;
+      background: #1e222d;
+      color: #f8fafc;
+      border: 1px solid var(--border-strong);
       padding: 12px 18px;
       border-radius: 14px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -1025,9 +1074,9 @@
               <span class="color-dot" style="background:#f5f0e6"></span>
               <span>Krem</span>
             </button>
-            <button type="button" class="swatch-btn" data-bg="#e5e7eb">
-              <span class="color-dot" style="background:#e5e7eb"></span>
-              <span>Abu</span>
+            <button type="button" class="swatch-btn" data-bg="#1e222b">
+              <span class="color-dot" style="background:#1e222b"></span>
+              <span>Abu Gelap</span>
             </button>
             <label class="color-picker-wrap">
               <span class="color-dot" id="customBgDot" style="background:#3b82f6"></span>
@@ -1236,8 +1285,45 @@
         </div>
       </section>
 
-      <!-- TAB 4: GAYA -->
+      <!-- TAB 4: GAYA & LOGO MEREK -->
       <section id="panel-gaya" class="tab-panel">
+        <!-- Logo Merk Kamera -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Logo / Emblem Merek Kamera</div>
+              <div class="card-subtitle">Otomatis mendeteksi merek atau pilih manual</div>
+            </div>
+          </div>
+
+          <div class="brand-grid" id="brandLogoChoices">
+            <button type="button" class="brand-chip active" data-brand="auto">Otomatis</button>
+            <button type="button" class="brand-chip" data-brand="none">Tanpa Logo</button>
+            <button type="button" class="brand-chip" data-brand="leica" style="color:#f87171;">● Leica</button>
+            <button type="button" class="brand-chip" data-brand="fujifilm">FUJIFILM</button>
+            <button type="button" class="brand-chip" data-brand="sony">SONY α</button>
+            <button type="button" class="brand-chip" data-brand="canon" style="color:#f87171;">Canon</button>
+            <button type="button" class="brand-chip" data-brand="nikon" style="color:#facc15;">Nikon</button>
+            <button type="button" class="brand-chip" data-brand="hasselblad">H Hasselblad</button>
+            <button type="button" class="brand-chip" data-brand="ricoh">GR Ricoh</button>
+            <button type="button" class="brand-chip" data-brand="lumix">LUMIX</button>
+            <button type="button" class="brand-chip" data-brand="olympus">OM / Olympus</button>
+            <button type="button" class="brand-chip" data-brand="apple">Apple</button>
+            <button type="button" class="brand-chip" data-brand="samsung">SAMSUNG</button>
+            <button type="button" class="brand-chip" data-brand="xiaomi">Xiaomi</button>
+            <button type="button" class="brand-chip" data-brand="dji">DJI</button>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label-row">
+              <span>Ukuran Logo Merek</span>
+              <span id="valLogoSize" class="value-pill">100%</span>
+            </div>
+            <input type="range" id="rangeLogoSize" min="60" max="150" value="100" />
+          </div>
+        </div>
+
+        <!-- Font EXIF -->
         <div class="card">
           <div class="card-title">Pilihan Font EXIF</div>
           <div class="grid-2" id="fontChoices">
@@ -1272,6 +1358,7 @@
           </div>
         </div>
 
+        <!-- Ukuran & Gaya Teks EXIF -->
         <div class="card">
           <div class="control-group">
             <div class="control-label-row">
@@ -1321,14 +1408,14 @@
                 <span class="color-dot" style="background:#ffffff"></span>
                 <span>Putih</span>
               </button>
-              <button type="button" class="swatch-btn" data-exifcolor="#d97706">
-                <span class="color-dot" style="background:#d97706"></span>
+              <button type="button" class="swatch-btn" data-exifcolor="#f59e0b">
+                <span class="color-dot" style="background:#f59e0b"></span>
                 <span>Emas</span>
               </button>
               <label class="color-picker-wrap">
-                <span class="color-dot" id="customExifDot" style="background:#2563eb"></span>
+                <span class="color-dot" id="customExifDot" style="background:#3b82f6"></span>
                 <span>Pilih</span>
-                <input type="color" id="exifColorPicker" value="#111827" />
+                <input type="color" id="exifColorPicker" value="#ffffff" />
               </label>
             </div>
           </div>
@@ -1425,7 +1512,7 @@
         <div class="sheet-hint">Tekan dan tahan gambar di atas untuk membagikan atau menyimpannya langsung</div>
       </div>
 
-      <button type="button" id="btnCopyImage" class="btn btn-dark btn-block">Salin Gambar ke Clipboard</button>
+      <button type="button" id="btnCopyImage" class="btn btn-light btn-block">Salin Gambar ke Clipboard</button>
       <button type="button" id="btnCopyCaption" class="btn btn-block">Salin Teks Data EXIF</button>
       <button type="button" id="btnDownloadFromShare" class="btn btn-primary btn-block">Unduh File Sekarang</button>
     </div>
@@ -1446,12 +1533,10 @@
           const view = new DataView(arrayBuffer);
           if (view.byteLength < 12) return {};
 
-          // Check JPEG SOI (0xFFD8)
           if (view.getUint16(0, false) === 0xFFD8) {
             return this.parseJpeg(view);
           }
 
-          // Check PNG Signature (89 50 4E 47)
           if (view.getUint32(0, false) === 0x89504E47) {
             return this.parsePng(view);
           }
@@ -1645,7 +1730,7 @@
       };
 
       const state = {
-        photos: [], // { id, name, img, thumbUrl, originalExif, exif }
+        photos: [],
         activeIndex: -1,
         layout: 'modern',
         framePad: 48,
@@ -1663,6 +1748,8 @@
         wmTiled: false,
         wmDensity: 3,
         wmPos: { x: 0.88, y: 0.90 },
+        brandLogo: 'auto',
+        logoSize: 100,
         fontFamily: 'sans',
         exifSize: 100,
         letterSpacing: 1,
@@ -1742,7 +1829,10 @@
         wmPositionControls: document.getElementById('wmPositionControls'),
         wmPosGrid: document.getElementById('wmPosGrid'),
 
-        // Gaya controls
+        // Gaya & Logo controls
+        brandLogoChoices: document.getElementById('brandLogoChoices'),
+        rangeLogoSize: document.getElementById('rangeLogoSize'),
+        valLogoSize: document.getElementById('valLogoSize'),
         fontChoices: document.getElementById('fontChoices'),
         rangeExifSize: document.getElementById('rangeExifSize'),
         valExifSize: document.getElementById('valExifSize'),
@@ -1845,7 +1935,212 @@
       }
 
       /* =====================================================================
-       * 5. PHOTO UPLOAD & EXIF EXTRACTION
+       * 5. VECTOR CAMERA BRAND EMBLEM ENGINE (100% OFFLINE)
+       * ===================================================================*/
+      function resolveCameraBrand(exif) {
+        if (state.brandLogo !== 'auto') return state.brandLogo;
+        const raw = `${exif.make || ''} ${exif.model || ''}`.toLowerCase();
+        if (raw.includes('leica')) return 'leica';
+        if (raw.includes('fuji')) return 'fujifilm';
+        if (raw.includes('sony') || raw.includes('ilce') || raw.includes('zv-')) return 'sony';
+        if (raw.includes('canon') || raw.includes('eos')) return 'canon';
+        if (raw.includes('nikon')) return 'nikon';
+        if (raw.includes('hasselblad')) return 'hasselblad';
+        if (raw.includes('ricoh') || raw.includes('gr iii') || raw.includes('gr ii')) return 'ricoh';
+        if (raw.includes('lumix') || raw.includes('panasonic')) return 'lumix';
+        if (raw.includes('olympus') || raw.includes('om system') || raw.includes('om-')) return 'olympus';
+        if (raw.includes('apple') || raw.includes('iphone')) return 'apple';
+        if (raw.includes('samsung') || raw.includes('sm-')) return 'samsung';
+        if (raw.includes('xiaomi') || raw.includes('redmi') || raw.includes('poco')) return 'xiaomi';
+        if (raw.includes('dji') || raw.includes('fc')) return 'dji';
+        return 'none';
+      }
+
+      /**
+       * Draws crisp vector brand emblem centered vertically at (centerY)
+       * and aligned horizontally according to `align` ('left' | 'right' | 'center').
+       * Returns the total rendered width in pixels so text can shift cleanly.
+       */
+      function drawBrandEmblem(ctx, brand, anchorX, centerY, baseHeight, darkBg, align = 'left') {
+        if (!brand || brand === 'none') return 0;
+
+        const scale = state.logoSize / 100;
+        const h = Math.round(baseHeight * scale);
+        const monoColor = darkBg ? '#f8fafc' : '#111827';
+
+        // Measure width first based on brand style
+        let width = h;
+        ctx.save();
+
+        if (brand === 'leica') {
+          width = h * 1.15;
+        } else if (brand === 'nikon') {
+          width = h * 1.12;
+        } else if (brand === 'ricoh') {
+          width = h * 1.25;
+        } else if (brand === 'hasselblad') {
+          width = h * 1.05;
+        } else if (brand === 'apple') {
+          width = h * 0.95;
+        } else if (brand === 'xiaomi') {
+          width = h * 1.05;
+        } else if (brand === 'fujifilm') {
+          ctx.font = `800 ${Math.round(h * 0.44)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          width = ctx.measureText('FUJIFILM').width + h * 0.16;
+        } else if (brand === 'sony') {
+          ctx.font = `700 ${Math.round(h * 0.48)}px Georgia, "Times New Roman", serif`;
+          width = ctx.measureText('SONY α').width + h * 0.14;
+        } else if (brand === 'canon') {
+          ctx.font = `800 ${Math.round(h * 0.56)}px Georgia, "Times New Roman", serif`;
+          width = ctx.measureText('Canon').width + h * 0.14;
+        } else if (brand === 'lumix') {
+          ctx.font = `800 ${Math.round(h * 0.46)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          width = ctx.measureText('LUMIX').width + h * 0.14;
+        } else if (brand === 'olympus') {
+          ctx.font = `800 ${Math.round(h * 0.42)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          width = ctx.measureText('OM SYSTEM').width + h * 0.14;
+        } else if (brand === 'samsung') {
+          ctx.font = `800 ${Math.round(h * 0.42)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          width = ctx.measureText('SAMSUNG').width + h * 0.14;
+        } else if (brand === 'dji') {
+          ctx.font = `italic 900 ${Math.round(h * 0.58)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          width = ctx.measureText('DJI').width + h * 0.16;
+        }
+
+        let leftX = anchorX;
+        if (align === 'right') leftX = anchorX - width;
+        else if (align === 'center') leftX = anchorX - width / 2;
+
+        const cx = leftX + width / 2;
+        const cy = centerY;
+
+        if (brand === 'leica') {
+          const r = h * 0.52;
+          ctx.fillStyle = '#e20613';
+          ctx.beginPath();
+          ctx.arc(cx, cy, r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = `italic 700 ${Math.round(r * 0.82)}px Georgia, "Times New Roman", serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('Leica', cx, cy + r * 0.04);
+        } else if (brand === 'nikon') {
+          const box = h * 1.02;
+          const bx = cx - box / 2;
+          const by = cy - box / 2;
+          ctx.fillStyle = '#ffe600';
+          ctx.beginPath();
+          ctx.roundRect(bx, by, box, box, box * 0.14);
+          ctx.fill();
+
+          ctx.fillStyle = '#111111';
+          ctx.font = `italic 800 ${Math.round(box * 0.31)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('Nikon', cx, cy + box * 0.03);
+        } else if (brand === 'ricoh') {
+          const bw = h * 1.18;
+          const bh = h * 0.78;
+          ctx.strokeStyle = monoColor;
+          ctx.lineWidth = Math.max(1.5, h * 0.065);
+          ctx.strokeRect(cx - bw / 2, cy - bh / 2, bw, bh);
+
+          ctx.fillStyle = monoColor;
+          ctx.font = `800 ${Math.round(bh * 0.56)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('GR', cx, cy + bh * 0.04);
+        } else if (brand === 'hasselblad') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `700 ${Math.round(h * 0.84)}px Georgia, "Times New Roman", serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('H', cx, cy + h * 0.03);
+        } else if (brand === 'xiaomi') {
+          const box = h * 0.96;
+          ctx.fillStyle = '#ff6900';
+          ctx.beginPath();
+          ctx.roundRect(cx - box / 2, cy - box / 2, box, box, box * 0.28);
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = `700 ${Math.round(box * 0.44)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('mi', cx, cy + box * 0.03);
+        } else if (brand === 'apple') {
+          const r = h * 0.34;
+          ctx.fillStyle = monoColor;
+          ctx.beginPath();
+          ctx.arc(cx, cy + r * 0.15, r, 0, Math.PI * 2);
+          ctx.fill();
+          // Leaf
+          ctx.beginPath();
+          ctx.ellipse(cx + r * 0.18, cy - r * 0.98, r * 0.22, r * 0.38, Math.PI / 4, 0, Math.PI * 2);
+          ctx.fill();
+          // Bite cutout
+          ctx.fillStyle = darkBg ? '#0f1115' : state.bgColor;
+          ctx.beginPath();
+          ctx.arc(cx + r * 0.92, cy + r * 0.05, r * 0.42, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (brand === 'fujifilm') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `800 ${Math.round(h * 0.44)}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('FUJIFILM', cx, cy);
+          // Red accent bar under I
+          ctx.fillStyle = '#e60012';
+          ctx.fillRect(cx - width * 0.12, cy + h * 0.24, width * 0.24, Math.max(2, h * 0.06));
+        } else if (brand === 'sony') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `700 ${Math.round(h * 0.48)}px Georgia, "Times New Roman", serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('SONY ', cx - h * 0.14, cy);
+          ctx.fillStyle = '#ea580c';
+          ctx.font = `italic 700 ${Math.round(h * 0.54)}px Georgia, serif`;
+          ctx.fillText('α', cx + width * 0.34, cy);
+        } else if (brand === 'canon') {
+          ctx.fillStyle = '#cc0000';
+          ctx.font = `800 ${Math.round(h * 0.56)}px Georgia, "Times New Roman", serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('Canon', cx, cy);
+        } else if (brand === 'lumix') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `800 ${Math.round(h * 0.46)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('LUMIX', cx, cy);
+        } else if (brand === 'olympus') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `800 ${Math.round(h * 0.42)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('OM SYSTEM', cx, cy);
+        } else if (brand === 'samsung') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `800 ${Math.round(h * 0.42)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('SAMSUNG', cx, cy);
+        } else if (brand === 'dji') {
+          ctx.fillStyle = monoColor;
+          ctx.font = `italic 900 ${Math.round(h * 0.58)}px -apple-system, BlinkMacSystemFont, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('DJI', cx, cy);
+        }
+
+        ctx.restore();
+        return width;
+      }
+
+      /* =====================================================================
+       * 6. PHOTO UPLOAD & EXIF EXTRACTION
        * ===================================================================*/
       async function handleFilesSelected(fileList) {
         const files = Array.from(fileList || []).filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|heic|tiff?)$/i.test(f.name));
@@ -1858,7 +2153,6 @@
             const objectUrl = URL.createObjectURL(file);
             const img = await loadImage(objectUrl);
 
-            // Create small thumbnail for filmstrip
             const thumbCanvas = document.createElement('canvas');
             thumbCanvas.width = 110;
             thumbCanvas.height = 110;
@@ -1974,7 +2268,7 @@
       }
 
       /* =====================================================================
-       * 6. CANVAS COMPOSITION ENGINE (PREVIEW & FULL-RES EXPORT)
+       * 7. CANVAS COMPOSITION ENGINE (PREVIEW & FULL-RES EXPORT)
        * ===================================================================*/
       let lastPhotoRect = { x: 0, y: 0, w: 0, h: 0 };
 
@@ -2028,7 +2322,6 @@
 
       function drawBlurredBackdrop(ctx, img, totalW, totalH) {
         ctx.save();
-        // Downscale-upscale fallback ensures blur works reliably even on older Android WebViews
         const smallCanvas = document.createElement('canvas');
         smallCanvas.width = 48;
         smallCanvas.height = 48;
@@ -2036,7 +2329,7 @@
         sCtx.drawImage(img, 0, 0, 48, 48);
 
         if ('filter' in ctx) {
-          ctx.filter = `blur(${Math.round(Math.max(totalW, totalH) * 0.03)}px) brightness(0.78)`;
+          ctx.filter = `blur(${Math.round(Math.max(totalW, totalH) * 0.03)}px) brightness(0.75)`;
         }
         const scale = Math.max(totalW / img.naturalWidth, totalH / img.naturalHeight) * 1.15;
         const dw = img.naturalWidth * scale;
@@ -2044,8 +2337,7 @@
         ctx.drawImage(smallCanvas, (totalW - dw) / 2, (totalH - dh) / 2, dw, dh);
         ctx.filter = 'none';
 
-        // Subtle dark glass tint for readability
-        ctx.fillStyle = 'rgba(12, 14, 18, 0.34)';
+        ctx.fillStyle = 'rgba(10, 12, 16, 0.36)';
         ctx.fillRect(0, 0, totalW, totalH);
         ctx.restore();
       }
@@ -2119,7 +2411,6 @@
             ctx.textBaseline = 'middle';
             ctx.fillText(label, 0, 1 * scaleFactor);
           } else {
-            // minimal
             ctx.font = `600 ${baseFontSize}px ${FONT_STACKS.sans}`;
             ctx.fillStyle = color;
             ctx.shadowColor = isDarkText ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.65)';
@@ -2185,7 +2476,6 @@
         const baseRef = Math.min(photoW, photoH);
         const uiScale = baseRef / 1000;
 
-        // Calculate borders & bottom bar heights proportionally
         const pad = Math.round(state.framePad * 1.6 * uiScale);
         const cornerR = Math.round(state.cornerRadius * 1.6 * uiScale);
         const layout = state.layout;
@@ -2197,7 +2487,7 @@
         if (layout === 'gallery') {
           topPad = Math.round(pad * 1.35);
           sidePad = Math.round(pad * 1.35);
-          bottomBarH = Math.max(Math.round(170 * uiScale), Math.round(pad * 3.1));
+          bottomBarH = Math.max(Math.round(175 * uiScale), Math.round(pad * 3.1));
         } else if (layout === 'blur') {
           topPad = Math.round(pad * 1.25);
           sidePad = Math.round(pad * 1.25);
@@ -2232,7 +2522,7 @@
         // Photo Drop Shadow
         if (state.showShadow || layout === 'blur') {
           ctx.save();
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.32)';
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.34)';
           ctx.shadowBlur = Math.round(36 * uiScale);
           ctx.shadowOffsetY = Math.round(12 * uiScale);
           ctx.fillStyle = '#000000';
@@ -2249,10 +2539,10 @@
         // Draw Main Photo
         drawRoundedImage(ctx, photo.img, photoRect.x, photoRect.y, photoRect.w, photoRect.h, cornerR);
 
-        // Draw Watermark on top of photo
+        // Draw Watermark
         drawWatermarkOverlay(ctx, photoRect, uiScale);
 
-        // Determine Typography Colors & Styles
+        // Typography Colors & Styles
         const darkBg = layout === 'blur' ? true : isColorDark(state.bgColor);
         const primaryTextColor = state.exifColor === 'auto'
           ? (darkBg ? '#f9fafb' : '#111827')
@@ -2277,6 +2567,7 @@
         const subLeft = buildSubLeftLine(photo.exif);
         const paramLine = buildParameterLine(photo.exif);
         const dateText = state.showDate ? applyTextTransform((photo.exif.date || '').trim()) : '';
+        const activeBrand = resolveCameraBrand(photo.exif);
 
         const barTop = photoRect.y + photoRect.h;
         const barCenterY = barTop + bottomBarH / 2;
@@ -2285,38 +2576,51 @@
         ctx.textBaseline = 'middle';
 
         if (layout === 'gallery') {
-          // Centered Museum Style
           const centerX = totalW / 2;
+          const logoBaseH = Math.max(24, Math.round(bottomBarH * 0.34));
+          let textCenterY = barCenterY;
+
+          if (activeBrand !== 'none') {
+            drawBrandEmblem(ctx, activeBrand, centerX, barTop + bottomBarH * 0.28, logoBaseH, darkBg, 'center');
+            textCenterY = barTop + bottomBarH * 0.68;
+          }
+
           const line1 = camTitle || paramLine;
-          const line2 = camTitle ? [paramLine, subLeft, dateText].filter(Boolean).join(state.separator) : [subLeft, dateText].filter(Boolean).join(state.separator);
+          const line2 = camTitle
+            ? [paramLine, subLeft, dateText].filter(Boolean).join(state.separator)
+            : [subLeft, dateText].filter(Boolean).join(state.separator);
 
           if (line1 && line2) {
             ctx.font = `${fontStyle} ${weightMain} ${titleSize}px ${fontFamily}`;
             ctx.fillStyle = primaryTextColor;
-            drawTextWithSpacing(ctx, line1, centerX, barCenterY - subSize * 0.85, letterSp, 'center');
+            drawTextWithSpacing(ctx, line1, centerX, textCenterY - subSize * 0.82, letterSp, 'center');
 
             ctx.font = `${fontStyle} ${weightSub} ${subSize}px ${fontFamily}`;
             ctx.fillStyle = secondaryTextColor;
-            drawTextWithSpacing(ctx, line2, centerX, barCenterY + titleSize * 0.85, letterSp, 'center');
+            drawTextWithSpacing(ctx, line2, centerX, textCenterY + titleSize * 0.82, letterSp, 'center');
           } else if (line1) {
             ctx.font = `${fontStyle} ${weightMain} ${titleSize}px ${fontFamily}`;
             ctx.fillStyle = primaryTextColor;
-            drawTextWithSpacing(ctx, line1, centerX, barCenterY, letterSp, 'center');
+            drawTextWithSpacing(ctx, line1, centerX, textCenterY, letterSp, 'center');
           }
         } else if (layout === 'telemetry') {
-          // Top & Bottom Film Strip Telemetry
           const topCenterY = topPad / 2;
           ctx.font = `${fontStyle} 700 ${Math.round(subSize * 0.95)}px ${FONT_STACKS.mono}`;
           ctx.fillStyle = secondaryTextColor;
 
+          let leftTopX = sidePad;
+          if (activeBrand !== 'none') {
+            const logoW = drawBrandEmblem(ctx, activeBrand, leftTopX, topCenterY, Math.max(20, Math.round(topPad * 0.56)), darkBg, 'left');
+            leftTopX += logoW + Math.round(14 * uiScale);
+          }
+
           const topLeftLabel = camTitle ? `[ ${camTitle} ]` : '[ EXIF FRAME ]';
           const topRightLabel = subLeft ? `[ ${subLeft} ]` : '';
-          drawTextWithSpacing(ctx, topLeftLabel, sidePad, topCenterY, letterSp, 'left');
+          drawTextWithSpacing(ctx, topLeftLabel, leftTopX, topCenterY, letterSp, 'left');
           if (topRightLabel) {
             drawTextWithSpacing(ctx, topRightLabel, totalW - sidePad, topCenterY, letterSp, 'right');
           }
 
-          // Bottom telemetry line
           const bottomText = [paramLine, dateText].filter(Boolean).join('   //   ');
           if (bottomText) {
             ctx.font = `${fontStyle} ${weightMain} ${paramSize}px ${FONT_STACKS.mono}`;
@@ -2324,7 +2628,6 @@
             drawTextWithSpacing(ctx, bottomText, totalW / 2, barCenterY, letterSp, 'center');
           }
 
-          // Subtle registration corner ticks
           ctx.strokeStyle = dividerColor;
           ctx.lineWidth = Math.max(1, 2 * uiScale);
           const tick = Math.round(14 * uiScale);
@@ -2335,9 +2638,18 @@
           ctx.lineTo(totalW - sidePad, photoRect.y - tick * 0.5);
           ctx.stroke();
         } else {
-          // Modern Bar & Blurred Glass (Left: Camera + Lens, Right: Params + Date)
-          const leftX = sidePad;
+          // Modern Bar & Blurred Glass
+          let leftX = sidePad;
           const rightX = totalW - sidePad;
+
+          // Draw Brand Logo on Left Side before Camera Title
+          if (activeBrand !== 'none') {
+            const logoH = Math.max(26, Math.round(bottomBarH * 0.44));
+            const renderedLogoW = drawBrandEmblem(ctx, activeBrand, leftX, barCenterY, logoH, darkBg, 'left');
+            if (renderedLogoW > 0) {
+              leftX += renderedLogoW + Math.round(22 * uiScale);
+            }
+          }
 
           // Left Block
           if (camTitle && subLeft) {
@@ -2369,15 +2681,15 @@
             drawTextWithSpacing(ctx, paramLine || dateText, rightX, barCenterY, letterSp, 'right');
           }
 
-          // Optional Vertical Divider before Right Block
-          if (state.showDivider && (camTitle || subLeft) && (paramLine || dateText)) {
+          // Vertical Divider before Right Block
+          if (state.showDivider && (camTitle || subLeft || activeBrand !== 'none') && (paramLine || dateText)) {
             ctx.font = `${fontStyle} ${weightMain} ${paramSize}px ${fontFamily}`;
             const rightWidth = Math.max(
               paramLine ? ctx.measureText(paramLine).width + paramLine.length * letterSp : 0,
               dateText ? ctx.measureText(dateText).width + dateText.length * letterSp : 0
             );
             const divX = rightX - rightWidth - Math.round(28 * uiScale);
-            if (divX > leftX + Math.round(120 * uiScale)) {
+            if (divX > leftX + Math.round(80 * uiScale)) {
               ctx.strokeStyle = dividerColor;
               ctx.lineWidth = Math.max(1.5, 2.5 * uiScale);
               const divH = Math.round(bottomBarH * 0.44);
@@ -2410,7 +2722,7 @@
       }
 
       /* =====================================================================
-       * 7. PREVIEW MODE & HARDWARE BACK BUTTON SUPPORT
+       * 8. PREVIEW MODE & HARDWARE BACK BUTTON SUPPORT
        * ===================================================================*/
       async function openPreviewMode() {
         if (!getActivePhoto() || isPreviewOpen) return;
@@ -2428,9 +2740,7 @@
           if (!history.state || !history.state.exifPreview) {
             history.pushState({ exifPreview: true }, '', '#preview');
           }
-        } catch (e) {
-          // Ignore in restricted file:// contexts if any
-        }
+        } catch (e) {}
       }
 
       function closePreviewMode(fromPopState = false) {
@@ -2460,7 +2770,6 @@
         }
       });
 
-      // Expose hook for Android MainActivity.onBackPressed()
       window.handleAndroidBackPress = function () {
         if (isPreviewOpen) {
           closePreviewMode(false);
@@ -2474,7 +2783,7 @@
       };
 
       /* =====================================================================
-       * 8. SAVE & SHARE HANDLERS (100% OFFLINE)
+       * 9. SAVE & SHARE HANDLERS (100% OFFLINE)
        * ===================================================================*/
       async function saveCurrentPhoto() {
         const photo = getActivePhoto();
@@ -2484,7 +2793,6 @@
         const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
         const filename = `${photo.name}-exif.${ext}`;
 
-        // Native Android WebView bridge hook if available
         if (window.AndroidBridge && typeof window.AndroidBridge.saveImage === 'function') {
           window.AndroidBridge.saveImage(canvas.toDataURL(state.exportFormat === 'png' ? 'image/png' : 'image/jpeg', 0.96), filename);
           showToast('Tersimpan ke Galeri HP');
@@ -2526,13 +2834,11 @@
         const caption = buildCaptionSummary();
         const dataUrl = canvas.toDataURL(mime, 0.96);
 
-        // 1. Native Android Share Bridge if injected in APK
         if (window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function') {
           window.AndroidBridge.shareImage(dataUrl, filename);
           return;
         }
 
-        // 2. Web Share API Level 2 (Share File)
         try {
           const file = new File([blob], filename, { type: mime });
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -2547,14 +2853,12 @@
           if (err && err.name === 'AbortError') return;
         }
 
-        // 3. Offline Share Sheet Fallback
         openShareModal(dataUrl);
       }
 
       /* =====================================================================
-       * 9. EVENT LISTENERS & INTERACTIONS
+       * 10. EVENT LISTENERS & INTERACTIONS
        * ===================================================================*/
-      // File Pickers
       el.emptyDropBox.addEventListener('click', () => el.fileInput.click());
       el.btnAddPhoto.addEventListener('click', () => el.fileInput.click());
       el.fileInput.addEventListener('change', (e) => {
@@ -2875,7 +3179,22 @@
         renderPreview();
       });
 
-      // TAB 4: Gaya Events
+      // TAB 4: Gaya & Logo Events
+      el.brandLogoChoices.addEventListener('click', (e) => {
+        const chip = e.target.closest('.brand-chip');
+        if (!chip) return;
+        el.brandLogoChoices.querySelectorAll('.brand-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state.brandLogo = chip.dataset.brand;
+        renderPreview();
+      });
+
+      el.rangeLogoSize.addEventListener('input', () => {
+        state.logoSize = Number(el.rangeLogoSize.value);
+        el.valLogoSize.textContent = `${state.logoSize}%`;
+        renderPreview();
+      });
+
       el.fontChoices.addEventListener('click', (e) => {
         const btn = e.target.closest('.choice-btn');
         if (!btn) return;
