@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#090a0d" />
+  <meta name="theme-color" content="#000000" />
   <title>EXIF Frame Studio</title>
   <style>
     :root {
-      --bg-app: #090a0d;
-      --bg-surface: #12141a;
-      --bg-subtle: #181b23;
-      --bg-elevated: #1f232e;
-      --bg-stage: #060709;
-      --border: #232734;
-      --border-strong: #32384a;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --primary-soft: rgba(59, 130, 246, 0.16);
+      --bg-app: #000000;
+      --bg-surface: #0a0a0c;
+      --bg-subtle: #121215;
+      --bg-elevated: #18181c;
+      --bg-stage: #000000;
+      --border: #1e1e24;
+      --border-strong: #2c2c35;
+      --text-main: #fafafa;
+      --text-muted: #9ca3af;
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --primary-soft: rgba(249, 115, 22, 0.16);
       --danger: #f87171;
       --danger-soft: rgba(239, 68, 68, 0.14);
       --radius-lg: 16px;
@@ -35,7 +35,7 @@
 
     html, body {
       height: 100%;
-      background-color: #050608;
+      background-color: #000000;
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       font-size: 15px;
@@ -50,8 +50,8 @@
       background: var(--bg-app);
       display: flex;
       flex-direction: column;
-      border-left: 1px solid #161922;
-      border-right: 1px solid #161922;
+      border-left: 1px solid #141418;
+      border-right: 1px solid #141418;
     }
 
     /* Top Header */
@@ -61,7 +61,7 @@
       z-index: 30;
       height: 62px;
       padding: 0 14px;
-      background: rgba(18, 20, 26, 0.94);
+      background: rgba(5, 5, 7, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -82,13 +82,13 @@
       width: 38px;
       height: 38px;
       border-radius: 11px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #f97316, #ea580c);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
     }
 
     .brand-title {
@@ -139,7 +139,7 @@
       background: var(--primary);
       border-color: var(--primary);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.28);
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
     }
 
     .btn-primary:active {
@@ -149,7 +149,7 @@
     .btn-light {
       background: #f8fafc;
       border-color: #f8fafc;
-      color: #090a0d;
+      color: #050505;
     }
 
     .btn-danger-soft {
@@ -179,9 +179,9 @@
     .empty-upload-box {
       width: 100%;
       min-height: 230px;
-      border: 2px dashed #2e3446;
+      border: 2px dashed #27272f;
       border-radius: 18px;
-      background: #0f1117;
+      background: #070709;
       color: var(--text-main);
       display: flex;
       flex-direction: column;
@@ -196,19 +196,19 @@
 
     .empty-upload-box:active {
       border-color: var(--primary);
-      background: #141822;
+      background: #120d09;
     }
 
     .plus-circle {
       width: 64px;
       height: 64px;
       border-radius: 20px;
-      background: rgba(59, 130, 246, 0.12);
-      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      background: rgba(249, 115, 22, 0.12);
+      border: 1.5px solid rgba(249, 115, 22, 0.38);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     .empty-title {
@@ -234,7 +234,7 @@
       width: auto;
       height: auto;
       border-radius: 4px;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.85);
       cursor: pointer;
       touch-action: none;
     }
@@ -264,10 +264,10 @@
       height: 54px;
       border-radius: 11px;
       overflow: hidden;
-      border: 2.5px solid #262b38;
+      border: 2.5px solid #222228;
       flex-shrink: 0;
       cursor: pointer;
-      background: #161922;
+      background: #101014;
     }
 
     .thumb-item.selected {
@@ -289,7 +289,7 @@
       height: 20px;
       border-radius: 50%;
       border: none;
-      background: rgba(9, 10, 13, 0.88);
+      background: rgba(0, 0, 0, 0.88);
       color: #ffffff;
       font-size: 12px;
       font-weight: 700;
@@ -336,8 +336,8 @@
 
     .tab-btn.active {
       background: var(--primary-soft);
-      border-color: rgba(59, 130, 246, 0.45);
-      color: #60a5fa;
+      border-color: rgba(249, 115, 22, 0.48);
+      color: #fb923c;
     }
 
     /* Tab Panels */
@@ -429,14 +429,71 @@
     .choice-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     .choice-btn.active small {
-      color: #93c5fd;
+      color: #fdba74;
     }
 
-    /* Brand Logo Grid */
+    /* Collapsible Brand Logo Selector */
+    .brand-selector-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .brand-selector-btn:active {
+      border-color: var(--primary);
+    }
+
+    .brand-selector-btn.open {
+      border-color: rgba(249, 115, 22, 0.5);
+      background: #141210;
+    }
+
+    .brand-selector-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fb923c;
+      background: var(--primary-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    .brand-selector-chevron {
+      transition: transform 0.2s ease;
+    }
+
+    .brand-selector-btn.open .brand-selector-chevron {
+      transform: rotate(180deg);
+    }
+
+    .brand-drawer {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 2px;
+    }
+
+    .brand-drawer.open {
+      display: flex;
+    }
+
     .brand-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -465,7 +522,7 @@
     .brand-chip.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     /* Sliders */
@@ -487,7 +544,7 @@
     .value-pill {
       font-size: 13px;
       font-weight: 700;
-      color: #60a5fa;
+      color: #fb923c;
       background: var(--primary-soft);
       padding: 3px 10px;
       border-radius: 999px;
@@ -497,7 +554,7 @@
       -webkit-appearance: none;
       width: 100%;
       height: 8px;
-      background: #252a37;
+      background: #222228;
       border-radius: 999px;
       outline: none;
     }
@@ -508,8 +565,8 @@
       height: 26px;
       border-radius: 50%;
       background: var(--primary);
-      border: 3px solid #f8fafc;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      border: 3px solid #fafafa;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
       cursor: pointer;
     }
 
@@ -539,7 +596,7 @@
     .swatch-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     .color-dot {
@@ -614,12 +671,12 @@
     }
 
     .text-input::placeholder {
-      color: #4b5563;
+      color: #52525b;
     }
 
     .text-input:focus {
       border-color: var(--primary);
-      background: #1d212b;
+      background: #16161b;
     }
 
     /* Separator Chips */
@@ -646,7 +703,7 @@
     .sep-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     .sep-custom-input {
@@ -699,7 +756,7 @@
     .slider-switch {
       position: absolute;
       inset: 0;
-      background: #2b3040;
+      background: #26262e;
       border-radius: 999px;
       transition: 0.2s;
     }
@@ -711,9 +768,9 @@
       height: 24px;
       left: 3px;
       top: 3px;
-      background: #f8fafc;
+      background: #fafafa;
       border-radius: 50%;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
       transition: 0.2s;
     }
 
@@ -748,7 +805,7 @@
     .pos-btn.active {
       border-color: var(--primary);
       background: var(--primary-soft);
-      color: #60a5fa;
+      color: #fb923c;
     }
 
     /* Fullscreen Preview Modal */
@@ -756,7 +813,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: #050608;
+      background: #000000;
       display: none;
       flex-direction: column;
     }
@@ -768,7 +825,7 @@
     .preview-topbar {
       height: 64px;
       padding: 0 14px;
-      background: rgba(15, 17, 23, 0.95);
+      background: rgba(8, 8, 10, 0.96);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -810,7 +867,7 @@
       max-height: 100%;
       object-fit: contain;
       border-radius: 4px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
       transition: transform 0.15s ease;
     }
 
@@ -823,7 +880,7 @@
 
     .preview-bottombar {
       padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
-      background: rgba(15, 17, 23, 0.95);
+      background: rgba(8, 8, 10, 0.96);
       border-top: 1px solid var(--border);
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -835,7 +892,7 @@
       position: fixed;
       inset: 0;
       z-index: 120;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(0, 0, 0, 0.78);
       display: none;
       align-items: flex-end;
       justify-content: center;
@@ -855,7 +912,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 -10px 34px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 -10px 34px rgba(0, 0, 0, 0.65);
     }
 
     .sheet-preview-wrap {
@@ -888,14 +945,14 @@
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       z-index: 200;
-      background: #1e222d;
-      color: #f8fafc;
-      border: 1px solid var(--border-strong);
+      background: #141418;
+      color: #fafafa;
+      border: 1px solid rgba(249, 115, 22, 0.45);
       padding: 12px 18px;
       border-radius: 14px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -1079,7 +1136,7 @@
               <span>Abu Gelap</span>
             </button>
             <label class="color-picker-wrap">
-              <span class="color-dot" id="customBgDot" style="background:#3b82f6"></span>
+              <span class="color-dot" id="customBgDot" style="background:#f97316"></span>
               <span>Pilih</span>
               <input type="color" id="bgColorPicker" value="#ffffff" />
             </label>
@@ -1225,7 +1282,7 @@
               <span>Emas</span>
             </button>
             <label class="color-picker-wrap">
-              <span class="color-dot" id="customWmDot" style="background:#3b82f6"></span>
+              <span class="color-dot" id="customWmDot" style="background:#f97316"></span>
               <span>Pilih</span>
               <input type="color" id="wmColorPicker" value="#ffffff" />
             </label>
@@ -1287,39 +1344,47 @@
 
       <!-- TAB 4: GAYA & LOGO MEREK -->
       <section id="panel-gaya" class="tab-panel">
-        <!-- Logo Merk Kamera -->
+        <!-- Logo Merk Kamera (Collapsible) -->
         <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Logo / Emblem Merek Kamera</div>
-              <div class="card-subtitle">Otomatis mendeteksi merek atau pilih manual</div>
+          <button type="button" id="btnToggleBrandDrawer" class="brand-selector-btn" aria-expanded="false">
+            <div style="text-align:left;">
+              <div class="card-title">Logo Merek Kamera</div>
+              <div class="card-subtitle">Ketuk untuk memilih emblem merek</div>
             </div>
-          </div>
+            <span class="brand-selector-value">
+              <span id="activeBrandLabel">Otomatis</span>
+              <svg class="brand-selector-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
 
-          <div class="brand-grid" id="brandLogoChoices">
-            <button type="button" class="brand-chip active" data-brand="auto">Otomatis</button>
-            <button type="button" class="brand-chip" data-brand="none">Tanpa Logo</button>
-            <button type="button" class="brand-chip" data-brand="leica" style="color:#f87171;">● Leica</button>
-            <button type="button" class="brand-chip" data-brand="fujifilm">FUJIFILM</button>
-            <button type="button" class="brand-chip" data-brand="sony">SONY α</button>
-            <button type="button" class="brand-chip" data-brand="canon" style="color:#f87171;">Canon</button>
-            <button type="button" class="brand-chip" data-brand="nikon" style="color:#facc15;">Nikon</button>
-            <button type="button" class="brand-chip" data-brand="hasselblad">H Hasselblad</button>
-            <button type="button" class="brand-chip" data-brand="ricoh">GR Ricoh</button>
-            <button type="button" class="brand-chip" data-brand="lumix">LUMIX</button>
-            <button type="button" class="brand-chip" data-brand="olympus">OM / Olympus</button>
-            <button type="button" class="brand-chip" data-brand="apple">Apple</button>
-            <button type="button" class="brand-chip" data-brand="samsung">SAMSUNG</button>
-            <button type="button" class="brand-chip" data-brand="xiaomi">Xiaomi</button>
-            <button type="button" class="brand-chip" data-brand="dji">DJI</button>
-          </div>
-
-          <div class="control-group">
-            <div class="control-label-row">
-              <span>Ukuran Logo Merek</span>
-              <span id="valLogoSize" class="value-pill">100%</span>
+          <div id="brandDrawer" class="brand-drawer">
+            <div class="brand-grid" id="brandLogoChoices">
+              <button type="button" class="brand-chip active" data-brand="auto">Otomatis</button>
+              <button type="button" class="brand-chip" data-brand="none">Tanpa Logo</button>
+              <button type="button" class="brand-chip" data-brand="leica" style="color:#f87171;">● Leica</button>
+              <button type="button" class="brand-chip" data-brand="fujifilm">FUJIFILM</button>
+              <button type="button" class="brand-chip" data-brand="sony">SONY α</button>
+              <button type="button" class="brand-chip" data-brand="canon" style="color:#f87171;">Canon</button>
+              <button type="button" class="brand-chip" data-brand="nikon" style="color:#facc15;">Nikon</button>
+              <button type="button" class="brand-chip" data-brand="hasselblad">H Hasselblad</button>
+              <button type="button" class="brand-chip" data-brand="ricoh">GR Ricoh</button>
+              <button type="button" class="brand-chip" data-brand="lumix">LUMIX</button>
+              <button type="button" class="brand-chip" data-brand="olympus">OM / Olympus</button>
+              <button type="button" class="brand-chip" data-brand="apple">Apple</button>
+              <button type="button" class="brand-chip" data-brand="samsung">SAMSUNG</button>
+              <button type="button" class="brand-chip" data-brand="xiaomi">Xiaomi</button>
+              <button type="button" class="brand-chip" data-brand="dji">DJI</button>
             </div>
-            <input type="range" id="rangeLogoSize" min="60" max="150" value="100" />
+
+            <div class="control-group">
+              <div class="control-label-row">
+                <span>Ukuran Logo Merek</span>
+                <span id="valLogoSize" class="value-pill">100%</span>
+              </div>
+              <input type="range" id="rangeLogoSize" min="60" max="150" value="100" />
+            </div>
           </div>
         </div>
 
@@ -1413,7 +1478,7 @@
                 <span>Emas</span>
               </button>
               <label class="color-picker-wrap">
-                <span class="color-dot" id="customExifDot" style="background:#3b82f6"></span>
+                <span class="color-dot" id="customExifDot" style="background:#f97316"></span>
                 <span>Pilih</span>
                 <input type="color" id="exifColorPicker" value="#ffffff" />
               </label>
@@ -1512,9 +1577,9 @@
         <div class="sheet-hint">Tekan dan tahan gambar di atas untuk membagikan atau menyimpannya langsung</div>
       </div>
 
-      <button type="button" id="btnCopyImage" class="btn btn-light btn-block">Salin Gambar ke Clipboard</button>
+      <button type="button" id="btnNativeShareRetry" class="btn btn-primary btn-block">Bagikan File Gambar</button>
+      <button type="button" id="btnDownloadFromShare" class="btn btn-light btn-block">Simpan ke Galeri / Unduh</button>
       <button type="button" id="btnCopyCaption" class="btn btn-block">Salin Teks Data EXIF</button>
-      <button type="button" id="btnDownloadFromShare" class="btn btn-primary btn-block">Unduh File Sekarang</button>
     </div>
   </div>
 
@@ -1769,6 +1834,7 @@
       let isDraggingWm = false;
       let pointerDownPos = null;
       let pointerMoved = false;
+      let cachedSharePayload = null;
 
       /* =====================================================================
        * 3. DOM REFERENCES
@@ -1830,6 +1896,9 @@
         wmPosGrid: document.getElementById('wmPosGrid'),
 
         // Gaya & Logo controls
+        btnToggleBrandDrawer: document.getElementById('btnToggleBrandDrawer'),
+        activeBrandLabel: document.getElementById('activeBrandLabel'),
+        brandDrawer: document.getElementById('brandDrawer'),
         brandLogoChoices: document.getElementById('brandLogoChoices'),
         rangeLogoSize: document.getElementById('rangeLogoSize'),
         valLogoSize: document.getElementById('valLogoSize'),
@@ -1861,9 +1930,9 @@
         shareModal: document.getElementById('shareModal'),
         btnCloseShareModal: document.getElementById('btnCloseShareModal'),
         sharePreviewImg: document.getElementById('sharePreviewImg'),
-        btnCopyImage: document.getElementById('btnCopyImage'),
-        btnCopyCaption: document.getElementById('btnCopyCaption'),
+        btnNativeShareRetry: document.getElementById('btnNativeShareRetry'),
         btnDownloadFromShare: document.getElementById('btnDownloadFromShare'),
+        btnCopyCaption: document.getElementById('btnCopyCaption'),
 
         toast: document.getElementById('toast')
       };
@@ -1956,11 +2025,6 @@
         return 'none';
       }
 
-      /**
-       * Draws crisp vector brand emblem centered vertically at (centerY)
-       * and aligned horizontally according to `align` ('left' | 'right' | 'center').
-       * Returns the total rendered width in pixels so text can shift cleanly.
-       */
       function drawBrandEmblem(ctx, brand, anchorX, centerY, baseHeight, darkBg, align = 'left') {
         if (!brand || brand === 'none') return 0;
 
@@ -1968,7 +2032,6 @@
         const h = Math.round(baseHeight * scale);
         const monoColor = darkBg ? '#f8fafc' : '#111827';
 
-        // Measure width first based on brand style
         let width = h;
         ctx.save();
 
@@ -2076,11 +2139,9 @@
           ctx.beginPath();
           ctx.arc(cx, cy + r * 0.15, r, 0, Math.PI * 2);
           ctx.fill();
-          // Leaf
           ctx.beginPath();
           ctx.ellipse(cx + r * 0.18, cy - r * 0.98, r * 0.22, r * 0.38, Math.PI / 4, 0, Math.PI * 2);
           ctx.fill();
-          // Bite cutout
           ctx.fillStyle = darkBg ? '#0f1115' : state.bgColor;
           ctx.beginPath();
           ctx.arc(cx + r * 0.92, cy + r * 0.05, r * 0.42, 0, Math.PI * 2);
@@ -2091,7 +2152,6 @@
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('FUJIFILM', cx, cy);
-          // Red accent bar under I
           ctx.fillStyle = '#e60012';
           ctx.fillRect(cx - width * 0.12, cy + h * 0.24, width * 0.24, Math.max(2, h * 0.06));
         } else if (brand === 'sony') {
@@ -2515,7 +2575,7 @@
         }
 
         const photoRect = { x: sidePad, y: topPad, w: photoW, h: photoH };
-        if (maxDimension !== null) {
+        if (maxDimension === 1280) {
           lastPhotoRect = photoRect;
         }
 
@@ -2642,7 +2702,6 @@
           let leftX = sidePad;
           const rightX = totalW - sidePad;
 
-          // Draw Brand Logo on Left Side before Camera Title
           if (activeBrand !== 'none') {
             const logoH = Math.max(26, Math.round(bottomBarH * 0.44));
             const renderedLogoW = drawBrandEmblem(ctx, activeBrand, leftX, barCenterY, logoH, darkBg, 'left');
@@ -2651,7 +2710,6 @@
             }
           }
 
-          // Left Block
           if (camTitle && subLeft) {
             ctx.font = `${fontStyle} ${weightMain} ${titleSize}px ${fontFamily}`;
             ctx.fillStyle = primaryTextColor;
@@ -2666,7 +2724,6 @@
             drawTextWithSpacing(ctx, camTitle || subLeft, leftX, barCenterY, letterSp, 'left');
           }
 
-          // Right Block
           if (paramLine && dateText) {
             ctx.font = `${fontStyle} ${weightMain} ${paramSize}px ${fontFamily}`;
             ctx.fillStyle = primaryTextColor;
@@ -2681,7 +2738,6 @@
             drawTextWithSpacing(ctx, paramLine || dateText, rightX, barCenterY, letterSp, 'right');
           }
 
-          // Vertical Divider before Right Block
           if (state.showDivider && (camTitle || subLeft || activeBrand !== 'none') && (paramLine || dateText)) {
             ctx.font = `${fontStyle} ${weightMain} ${paramSize}px ${fontFamily}`;
             const rightWidth = Math.max(
@@ -2712,12 +2768,35 @@
       function renderFullResolutionBlob() {
         return new Promise((resolve) => {
           const exportCanvas = document.createElement('canvas');
-          renderFramedComposition(exportCanvas, null);
+          renderFramedComposition(exportCanvas, 4096);
           const mime = state.exportFormat === 'png' ? 'image/png' : 'image/jpeg';
           const quality = state.exportFormat === 'png' ? undefined : 0.96;
-          exportCanvas.toBlob((blob) => {
-            resolve({ blob, canvas: exportCanvas, mime });
-          }, mime, quality);
+
+          const finishWithDataUrl = () => {
+            const dataUrl = exportCanvas.toDataURL(mime, quality);
+            const parts = dataUrl.split(',');
+            const byteStr = atob(parts[1]);
+            const ab = new ArrayBuffer(byteStr.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteStr.length; i++) {
+              ia[i] = byteStr.charCodeAt(i);
+            }
+            const fallbackBlob = new Blob([ab], { type: mime });
+            resolve({ blob: fallbackBlob, canvas: exportCanvas, mime, dataUrl });
+          };
+
+          if (typeof exportCanvas.toBlob === 'function') {
+            exportCanvas.toBlob((blob) => {
+              if (!blob) {
+                finishWithDataUrl();
+                return;
+              }
+              const dataUrl = exportCanvas.toDataURL(mime, quality);
+              resolve({ blob, canvas: exportCanvas, mime, dataUrl });
+            }, mime, quality);
+          } else {
+            finishWithDataUrl();
+          }
         });
       }
 
@@ -2726,8 +2805,8 @@
        * ===================================================================*/
       async function openPreviewMode() {
         if (!getActivePhoto() || isPreviewOpen) return;
-        const { canvas } = await renderFullResolutionBlob();
-        el.previewFullImage.src = canvas.toDataURL('image/jpeg', 0.92);
+        const { dataUrl } = await renderFullResolutionBlob();
+        el.previewFullImage.src = dataUrl;
         isPreviewZoomed = false;
         el.previewViewport.classList.remove('zoomed');
         el.btnToggleZoom.querySelector('span').textContent = 'Zoom 100%';
@@ -2783,35 +2862,56 @@
       };
 
       /* =====================================================================
-       * 9. SAVE & SHARE HANDLERS (100% OFFLINE)
+       * 9. SAVE & SHARE HANDLERS (100% OFFLINE + ANDROID WEBVIEW & MOBILE)
        * ===================================================================*/
       async function saveCurrentPhoto() {
         const photo = getActivePhoto();
         if (!photo) return;
-        showToast('Memproses resolusi penuh...');
-        const { blob, canvas } = await renderFullResolutionBlob();
-        const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
-        const filename = `${photo.name}-exif.${ext}`;
+        showToast('Menyimpan foto resolusi penuh...');
 
-        if (window.AndroidBridge && typeof window.AndroidBridge.saveImage === 'function') {
-          window.AndroidBridge.saveImage(canvas.toDataURL(state.exportFormat === 'png' ? 'image/png' : 'image/jpeg', 0.96), filename);
-          showToast('Tersimpan ke Galeri HP');
-          return;
+        try {
+          const { blob, mime, dataUrl } = await renderFullResolutionBlob();
+          const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
+          const safeBase = (photo.name || 'exif-frame').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const filename = `${safeBase}-exif.${ext}`;
+
+          if (window.AndroidBridge && typeof window.AndroidBridge.saveImage === 'function') {
+            window.AndroidBridge.saveImage(dataUrl, filename);
+            showToast('Tersimpan ke Galeri HP');
+            return;
+          }
+
+          const isFileProtocol = window.location.protocol === 'file:';
+          if (isFileProtocol) {
+            const aData = document.createElement('a');
+            aData.href = dataUrl;
+            aData.download = filename;
+            document.body.appendChild(aData);
+            aData.click();
+            document.body.removeChild(aData);
+            showToast(`Disimpan: ${filename}`);
+            return;
+          }
+
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 5000);
+          showToast(`Disimpan ke Galeri: ${filename}`);
+        } catch (err) {
+          console.error('Gagal menyimpan foto:', err);
+          showToast('Gagal menyimpan — coba tekan Bagikan lalu Simpan Gambar');
         }
-
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(url), 3000);
-        showToast(`Disimpan: ${filename}`);
       }
 
-      function openShareModal(dataUrl) {
-        el.sharePreviewImg.src = dataUrl;
+      function openShareModal(payload) {
+        cachedSharePayload = payload;
+        el.sharePreviewImg.src = payload.dataUrl;
         el.shareModal.classList.add('open');
         el.shareModal.setAttribute('aria-hidden', 'false');
         isShareModalOpen = true;
@@ -2823,37 +2923,58 @@
         isShareModalOpen = false;
       }
 
+      async function triggerNativeFileShare(payload) {
+        const file = new File([payload.blob], payload.filename, {
+          type: payload.mime,
+          lastModified: Date.now()
+        });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file]
+          });
+          return true;
+        }
+
+        if (typeof navigator.share === 'function') {
+          await navigator.share({
+            files: [file]
+          });
+          return true;
+        }
+
+        return false;
+      }
+
       async function shareCurrentPhoto() {
         const photo = getActivePhoto();
         if (!photo) return;
 
-        showToast('Menyiapkan foto...');
-        const { blob, canvas, mime } = await renderFullResolutionBlob();
-        const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
-        const filename = `${photo.name}-exif.${ext}`;
-        const caption = buildCaptionSummary();
-        const dataUrl = canvas.toDataURL(mime, 0.96);
-
-        if (window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function') {
-          window.AndroidBridge.shareImage(dataUrl, filename);
-          return;
-        }
-
+        showToast('Menyiapkan file gambar...');
         try {
-          const file = new File([blob], filename, { type: mime });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: 'EXIF Frame Studio',
-              text: caption
-            });
+          const { blob, mime, dataUrl } = await renderFullResolutionBlob();
+          const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
+          const safeBase = (photo.name || 'exif-frame').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const filename = `${safeBase}-exif.${ext}`;
+          const payload = { blob, mime, dataUrl, filename };
+
+          if (window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function') {
+            window.AndroidBridge.shareImage(dataUrl, filename);
             return;
           }
-        } catch (err) {
-          if (err && err.name === 'AbortError') return;
-        }
 
-        openShareModal(dataUrl);
+          try {
+            const shared = await triggerNativeFileShare(payload);
+            if (shared) return;
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;
+          }
+
+          openShareModal(payload);
+        } catch (err) {
+          console.error('Gagal menyiapkan share:', err);
+          showToast('Gagal menyiapkan gambar untuk dibagikan');
+        }
       }
 
       /* =====================================================================
@@ -2949,15 +3070,14 @@
         if (e.target === el.shareModal) closeShareModal();
       });
 
-      el.btnCopyImage.addEventListener('click', async () => {
+      el.btnNativeShareRetry.addEventListener('click', async () => {
+        if (!cachedSharePayload) return;
         try {
-          const exportCanvas = document.createElement('canvas');
-          renderFramedComposition(exportCanvas, null);
-          const pngBlob = await new Promise(res => exportCanvas.toBlob(res, 'image/png'));
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
-          showToast('Gambar disalin ke clipboard');
+          const ok = await triggerNativeFileShare(cachedSharePayload);
+          if (ok) closeShareModal();
         } catch (err) {
-          showToast('Browser tidak mendukung salin gambar langsung — gunakan tombol Unduh');
+          if (err && err.name === 'AbortError') return;
+          showToast('Silakan tekan dan tahan gambar di atas untuk membagikan');
         }
       });
 
@@ -2971,7 +3091,17 @@
           await navigator.clipboard.writeText(text);
           showToast('Teks EXIF disalin');
         } catch (err) {
-          showToast(text);
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            showToast('Teks EXIF disalin');
+          } catch (_) {
+            showToast(text);
+          }
+          document.body.removeChild(ta);
         }
       });
 
@@ -3180,12 +3310,19 @@
       });
 
       // TAB 4: Gaya & Logo Events
+      el.btnToggleBrandDrawer.addEventListener('click', () => {
+        const isOpen = el.brandDrawer.classList.toggle('open');
+        el.btnToggleBrandDrawer.classList.toggle('open', isOpen);
+        el.btnToggleBrandDrawer.setAttribute('aria-expanded', String(isOpen));
+      });
+
       el.brandLogoChoices.addEventListener('click', (e) => {
         const chip = e.target.closest('.brand-chip');
         if (!chip) return;
         el.brandLogoChoices.querySelectorAll('.brand-chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state.brandLogo = chip.dataset.brand;
+        el.activeBrandLabel.textContent = chip.textContent.trim();
         renderPreview();
       });
 
