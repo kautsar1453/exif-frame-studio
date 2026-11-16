@@ -8,12 +8,12 @@
   <style>
     :root {
       --bg-app: #000000;
-      --bg-surface: #0a0a0c;
-      --bg-subtle: #121215;
-      --bg-elevated: #18181c;
+      --bg-surface: #0c0c0f;
+      --bg-subtle: #131318;
+      --bg-elevated: #1a1a20;
       --bg-stage: #000000;
-      --border: #1e1e24;
-      --border-strong: #2c2c35;
+      --border: #22222a;
+      --border-strong: #2e2e38;
       --text-main: #fafafa;
       --text-muted: #9ca3af;
       --primary: #f97316;
@@ -44,14 +44,16 @@
     }
 
     .app-shell {
+      width: 100%;
       max-width: 480px;
+      min-height: 100vh;
       min-height: 100dvh;
       margin: 0 auto;
       background: var(--bg-app);
       display: flex;
       flex-direction: column;
-      border-left: 1px solid #141418;
-      border-right: 1px solid #141418;
+      border-left: 1px solid #16161c;
+      border-right: 1px solid #16161c;
     }
 
     /* Top Header */
@@ -147,8 +149,8 @@
     }
 
     .btn-light {
-      background: #f8fafc;
-      border-color: #f8fafc;
+      background: #fafafa;
+      border-color: #fafafa;
       color: #050505;
     }
 
@@ -196,7 +198,7 @@
 
     .empty-upload-box:active {
       border-color: var(--primary);
-      background: #120d09;
+      background: #140e09;
     }
 
     .plus-circle {
@@ -229,6 +231,7 @@
     }
 
     #previewCanvas {
+      display: block;
       max-width: 100%;
       max-height: 360px;
       width: auto;
@@ -850,6 +853,7 @@
 
     .preview-viewport {
       flex: 1;
+      min-height: 0;
       overflow: auto;
       display: flex;
       align-items: center;
@@ -863,8 +867,10 @@
     }
 
     #previewFullImage {
+      display: block;
       max-width: 100%;
-      max-height: 100%;
+      max-height: calc(100vh - 152px);
+      max-height: calc(100dvh - 152px);
       object-fit: contain;
       border-radius: 4px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
@@ -887,7 +893,7 @@
       gap: 10px;
     }
 
-    /* Share Fallback Modal */
+    /* Bottom Sheet Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -927,15 +933,19 @@
     }
 
     .sheet-preview-wrap img {
-      max-height: 180px;
+      max-height: 190px;
       max-width: 100%;
       border-radius: 4px;
+      -webkit-touch-callout: default;
+      -webkit-user-select: auto;
+      user-select: auto;
     }
 
     .sheet-hint {
       font-size: 12px;
       color: var(--text-muted);
       text-align: center;
+      line-height: 1.45;
     }
 
     /* Toast */
@@ -947,12 +957,12 @@
       z-index: 200;
       background: #141418;
       color: #fafafa;
-      border: 1px solid rgba(249, 115, 22, 0.45);
+      border: 1px solid var(--border-strong);
       padding: 12px 18px;
       border-radius: 14px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -1033,7 +1043,7 @@
       <input
         type="file"
         id="fileInput"
-        accept="image/jpeg,image/png,image/webp,image/heic,image/tiff,.jpg,.jpeg,.png,.webp,.heic"
+        accept="image/*"
         multiple
         hidden
       />
@@ -1344,12 +1354,12 @@
 
       <!-- TAB 4: GAYA & LOGO MEREK -->
       <section id="panel-gaya" class="tab-panel">
-        <!-- Logo Merk Kamera (Collapsible) -->
+        <!-- Logo Merk Kamera (Collapsible Minimalis) -->
         <div class="card">
           <button type="button" id="btnToggleBrandDrawer" class="brand-selector-btn" aria-expanded="false">
             <div style="text-align:left;">
-              <div class="card-title">Logo Merek Kamera</div>
-              <div class="card-subtitle">Ketuk untuk memilih emblem merek</div>
+              <div class="card-title">Logo / Emblem Merek Kamera</div>
+              <div class="card-subtitle">Otomatis mendeteksi merek atau pilih manual</div>
             </div>
             <span class="brand-selector-value">
               <span id="activeBrandLabel">Otomatis</span>
@@ -1361,21 +1371,21 @@
 
           <div id="brandDrawer" class="brand-drawer">
             <div class="brand-grid" id="brandLogoChoices">
-              <button type="button" class="brand-chip active" data-brand="auto">Otomatis</button>
-              <button type="button" class="brand-chip" data-brand="none">Tanpa Logo</button>
-              <button type="button" class="brand-chip" data-brand="leica" style="color:#f87171;">● Leica</button>
-              <button type="button" class="brand-chip" data-brand="fujifilm">FUJIFILM</button>
-              <button type="button" class="brand-chip" data-brand="sony">SONY α</button>
-              <button type="button" class="brand-chip" data-brand="canon" style="color:#f87171;">Canon</button>
-              <button type="button" class="brand-chip" data-brand="nikon" style="color:#facc15;">Nikon</button>
-              <button type="button" class="brand-chip" data-brand="hasselblad">H Hasselblad</button>
-              <button type="button" class="brand-chip" data-brand="ricoh">GR Ricoh</button>
-              <button type="button" class="brand-chip" data-brand="lumix">LUMIX</button>
-              <button type="button" class="brand-chip" data-brand="olympus">OM / Olympus</button>
-              <button type="button" class="brand-chip" data-brand="apple">Apple</button>
-              <button type="button" class="brand-chip" data-brand="samsung">SAMSUNG</button>
-              <button type="button" class="brand-chip" data-brand="xiaomi">Xiaomi</button>
-              <button type="button" class="brand-chip" data-brand="dji">DJI</button>
+              <button type="button" class="brand-chip active" data-brand="auto" data-label="Otomatis">Otomatis</button>
+              <button type="button" class="brand-chip" data-brand="none" data-label="Tanpa Logo">Tanpa Logo</button>
+              <button type="button" class="brand-chip" data-brand="leica" data-label="Leica" style="color:#f87171;">● Leica</button>
+              <button type="button" class="brand-chip" data-brand="fujifilm" data-label="FUJIFILM">FUJIFILM</button>
+              <button type="button" class="brand-chip" data-brand="sony" data-label="SONY α">SONY α</button>
+              <button type="button" class="brand-chip" data-brand="canon" data-label="Canon" style="color:#f87171;">Canon</button>
+              <button type="button" class="brand-chip" data-brand="nikon" data-label="Nikon" style="color:#facc15;">Nikon</button>
+              <button type="button" class="brand-chip" data-brand="hasselblad" data-label="Hasselblad">H Hasselblad</button>
+              <button type="button" class="brand-chip" data-brand="ricoh" data-label="Ricoh GR">GR Ricoh</button>
+              <button type="button" class="brand-chip" data-brand="lumix" data-label="LUMIX">LUMIX</button>
+              <button type="button" class="brand-chip" data-brand="olympus" data-label="OM / Olympus">OM / Olympus</button>
+              <button type="button" class="brand-chip" data-brand="apple" data-label="Apple">Apple</button>
+              <button type="button" class="brand-chip" data-brand="samsung" data-label="SAMSUNG">SAMSUNG</button>
+              <button type="button" class="brand-chip" data-brand="xiaomi" data-label="Xiaomi">Xiaomi</button>
+              <button type="button" class="brand-chip" data-brand="dji" data-label="DJI">DJI</button>
             </div>
 
             <div class="control-group">
@@ -1564,6 +1574,24 @@
     </div>
   </div>
 
+  <!-- Save to Gallery Bottom Sheet (Android APK & WebView) -->
+  <div id="saveModal" class="modal-backdrop" aria-hidden="true">
+    <div class="bottom-sheet">
+      <div class="card-header">
+        <div class="card-title">Simpan ke Galeri HP</div>
+        <button type="button" id="btnCloseSaveModal" class="btn" style="min-height:40px; padding:0 14px;">Tutup</button>
+      </div>
+
+      <div class="sheet-preview-wrap">
+        <img id="savePreviewImg" alt="Hasil Render Siap Simpan" />
+        <div class="sheet-hint">Jika belum otomatis masuk ke Galeri, <strong>tekan &amp; tahan gambar di atas</strong> lalu pilih <strong>"Simpan gambar"</strong>, atau gunakan tombol di bawah</div>
+      </div>
+
+      <button type="button" id="btnSaveViaSystem" class="btn btn-primary btn-block">Simpan via Menu Sistem HP</button>
+      <button type="button" id="btnSaveDirectRetry" class="btn btn-light btn-block">Unduh File Langsung</button>
+    </div>
+  </div>
+
   <!-- Share Fallback Bottom Sheet -->
   <div id="shareModal" class="modal-backdrop" aria-hidden="true">
     <div class="bottom-sheet">
@@ -1578,7 +1606,7 @@
       </div>
 
       <button type="button" id="btnNativeShareRetry" class="btn btn-primary btn-block">Bagikan File Gambar</button>
-      <button type="button" id="btnDownloadFromShare" class="btn btn-light btn-block">Simpan ke Galeri / Unduh</button>
+      <button type="button" id="btnDownloadFromShare" class="btn btn-light btn-block">Simpan ke Galeri HP</button>
       <button type="button" id="btnCopyCaption" class="btn btn-block">Salin Teks Data EXIF</button>
     </div>
   </div>
@@ -1589,6 +1617,24 @@
   <script>
     (function () {
       'use strict';
+
+      /* Polyfill roundRect untuk kompatibilitas Android WebView / browser lama */
+      if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, radii) {
+          const r = Math.max(0, Math.min(typeof radii === 'number' ? radii : (Array.isArray(radii) ? radii[0] : 0), w / 2, h / 2));
+          this.moveTo(x + r, y);
+          this.lineTo(x + w - r, y);
+          this.quadraticCurveTo(x + w, y, x + w, y + r);
+          this.lineTo(x + w, y + h - r);
+          this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+          this.lineTo(x + r, y + h);
+          this.quadraticCurveTo(x, y + h, x, y + h - r);
+          this.lineTo(x, y + r);
+          this.quadraticCurveTo(x, y, x + r, y);
+          this.closePath();
+          return this;
+        };
+      }
 
       /* =====================================================================
        * 1. OFFLINE BINARY EXIF PARSER (JPEG APP1 & PNG eXIf)
@@ -1831,10 +1877,12 @@
       let isPreviewOpen = false;
       let isPreviewZoomed = false;
       let isShareModalOpen = false;
+      let isSaveModalOpen = false;
       let isDraggingWm = false;
       let pointerDownPos = null;
       let pointerMoved = false;
       let cachedSharePayload = null;
+      let cachedSavePayload = null;
 
       /* =====================================================================
        * 3. DOM REFERENCES
@@ -1927,6 +1975,12 @@
         btnPreviewShare: document.getElementById('btnPreviewShare'),
         btnPreviewSave: document.getElementById('btnPreviewSave'),
 
+        saveModal: document.getElementById('saveModal'),
+        btnCloseSaveModal: document.getElementById('btnCloseSaveModal'),
+        savePreviewImg: document.getElementById('savePreviewImg'),
+        btnSaveViaSystem: document.getElementById('btnSaveViaSystem'),
+        btnSaveDirectRetry: document.getElementById('btnSaveDirectRetry'),
+
         shareModal: document.getElementById('shareModal'),
         btnCloseShareModal: document.getElementById('btnCloseShareModal'),
         sharePreviewImg: document.getElementById('sharePreviewImg'),
@@ -1945,7 +1999,7 @@
         el.toast.textContent = msg;
         el.toast.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.toast.classList.remove('show'), 2500);
+        toastTimer = setTimeout(() => el.toast.classList.remove('show'), 2600);
       }
 
       function getActivePhoto() {
@@ -2520,7 +2574,7 @@
         ctx.restore();
       }
 
-      function renderFramedComposition(targetCanvas, maxDimension = null) {
+      function renderFramedComposition(targetCanvas, maxDimension = null, isLivePreview = false) {
         const photo = getActivePhoto();
         if (!photo) return;
 
@@ -2575,7 +2629,7 @@
         }
 
         const photoRect = { x: sidePad, y: topPad, w: photoW, h: photoH };
-        if (maxDimension === 1280) {
+        if (isLivePreview) {
           lastPhotoRect = photoRect;
         }
 
@@ -2762,41 +2816,30 @@
 
       function renderPreview() {
         if (!getActivePhoto()) return;
-        renderFramedComposition(el.previewCanvas, 1280);
+        renderFramedComposition(el.previewCanvas, 1280, true);
       }
 
       function renderFullResolutionBlob() {
         return new Promise((resolve) => {
           const exportCanvas = document.createElement('canvas');
-          renderFramedComposition(exportCanvas, 4096);
+          renderFramedComposition(exportCanvas, 4096, false);
           const mime = state.exportFormat === 'png' ? 'image/png' : 'image/jpeg';
           const quality = state.exportFormat === 'png' ? undefined : 0.96;
 
-          const finishWithDataUrl = () => {
-            const dataUrl = exportCanvas.toDataURL(mime, quality);
-            const parts = dataUrl.split(',');
-            const byteStr = atob(parts[1]);
-            const ab = new ArrayBuffer(byteStr.length);
-            const ia = new Uint8Array(ab);
-            for (let i = 0; i < byteStr.length; i++) {
-              ia[i] = byteStr.charCodeAt(i);
-            }
-            const fallbackBlob = new Blob([ab], { type: mime });
-            resolve({ blob: fallbackBlob, canvas: exportCanvas, mime, dataUrl });
-          };
-
-          if (typeof exportCanvas.toBlob === 'function') {
-            exportCanvas.toBlob((blob) => {
-              if (!blob) {
-                finishWithDataUrl();
-                return;
-              }
-              const dataUrl = exportCanvas.toDataURL(mime, quality);
-              resolve({ blob, canvas: exportCanvas, mime, dataUrl });
-            }, mime, quality);
-          } else {
-            finishWithDataUrl();
+          const dataUrl = exportCanvas.toDataURL(mime, quality);
+          const parts = dataUrl.split(',');
+          const byteStr = atob(parts[1]);
+          const ab = new ArrayBuffer(byteStr.length);
+          const ia = new Uint8Array(ab);
+          for (let i = 0; i < byteStr.length; i++) {
+            ia[i] = byteStr.charCodeAt(i);
           }
+          const blob = new Blob([ab], { type: mime });
+
+          exportCanvas.width = 0;
+          exportCanvas.height = 0;
+
+          resolve({ blob, mime, dataUrl });
         });
       }
 
@@ -2817,7 +2860,7 @@
 
         try {
           if (!history.state || !history.state.exifPreview) {
-            history.pushState({ exifPreview: true }, '', '#preview');
+            history.pushState({ exifPreview: true }, '');
           }
         } catch (e) {}
       }
@@ -2833,17 +2876,15 @@
             if (history.state && history.state.exifPreview) {
               history.back();
             }
-          } catch (e) {
-            if (location.hash === '#preview') {
-              location.hash = '';
-            }
-          }
+          } catch (e) {}
         }
       }
 
       window.addEventListener('popstate', () => {
         if (isPreviewOpen) {
           closePreviewMode(true);
+        } else if (isSaveModalOpen) {
+          closeSaveModal();
         } else if (isShareModalOpen) {
           closeShareModal();
         }
@@ -2854,6 +2895,10 @@
           closePreviewMode(false);
           return true;
         }
+        if (isSaveModalOpen) {
+          closeSaveModal();
+          return true;
+        }
         if (isShareModalOpen) {
           closeShareModal();
           return true;
@@ -2862,50 +2907,125 @@
       };
 
       /* =====================================================================
-       * 9. SAVE & SHARE HANDLERS (100% OFFLINE + ANDROID WEBVIEW & MOBILE)
+       * 9. SAVE & SHARE HANDLERS (ANDROID APK NATIVE & BROWSER)
        * ===================================================================*/
+      function openSaveModal(payload) {
+        cachedSavePayload = payload;
+        el.savePreviewImg.src = payload.dataUrl;
+        el.saveModal.classList.add('open');
+        el.saveModal.setAttribute('aria-hidden', 'false');
+        isSaveModalOpen = true;
+      }
+
+      function closeSaveModal() {
+        el.saveModal.classList.remove('open');
+        el.saveModal.setAttribute('aria-hidden', 'true');
+        isSaveModalOpen = false;
+      }
+
+      function triggerAnchorDownload(payload) {
+        const isFileProtocol = window.location.protocol === 'file:';
+        const a = document.createElement('a');
+        if (isFileProtocol) {
+          a.href = payload.dataUrl;
+          a.download = payload.filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          const url = URL.createObjectURL(payload.blob);
+          a.href = url;
+          a.download = payload.filename;
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 5000);
+        }
+      }
+
+      async function tryNativeAndroidBridgeSave(dataUrl, filename) {
+        if (window.AndroidBridge && typeof window.AndroidBridge.saveImage === 'function') {
+          window.AndroidBridge.saveImage(dataUrl, filename);
+          return true;
+        }
+        if (window.Android && typeof window.Android.saveImage === 'function') {
+          window.Android.saveImage(dataUrl, filename);
+          return true;
+        }
+        if (window.Android && typeof window.Android.saveBase64Image === 'function') {
+          window.Android.saveBase64Image(dataUrl, filename);
+          return true;
+        }
+        if (window.Android && typeof window.Android.downloadFile === 'function') {
+          window.Android.downloadFile(dataUrl, filename);
+          return true;
+        }
+        if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
+          const base64Data = dataUrl.split(',')[1];
+          await window.Capacitor.Plugins.Filesystem.writeFile({
+            path: `Pictures/${filename}`,
+            data: base64Data,
+            directory: 'EXTERNAL_STORAGE',
+            recursive: true
+          });
+          return true;
+        }
+        return false;
+      }
+
       async function saveCurrentPhoto() {
         const photo = getActivePhoto();
         if (!photo) return;
-        showToast('Menyimpan foto resolusi penuh...');
+        showToast('Memproses resolusi penuh...');
+        await new Promise(r => requestAnimationFrame(r));
 
         try {
           const { blob, mime, dataUrl } = await renderFullResolutionBlob();
           const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
           const safeBase = (photo.name || 'exif-frame').replace(/[^a-zA-Z0-9_-]/g, '_');
           const filename = `${safeBase}-exif.${ext}`;
+          const payload = { blob, mime, dataUrl, filename };
 
-          if (window.AndroidBridge && typeof window.AndroidBridge.saveImage === 'function') {
-            window.AndroidBridge.saveImage(dataUrl, filename);
-            showToast('Tersimpan ke Galeri HP');
-            return;
+          // 1. Cek antarmuka native Android APK (AndroidBridge / Android / Capacitor)
+          try {
+            const savedNative = await tryNativeAndroidBridgeSave(dataUrl, filename);
+            if (savedNative) {
+              showToast(`Tersimpan ke Galeri HP: ${filename}`);
+              return;
+            }
+          } catch (_) {}
+
+          // 2. Dialog penyimpanan sistem Android (Storage Access Framework)
+          if (typeof window.showSaveFilePicker === 'function') {
+            try {
+              const handle = await window.showSaveFilePicker({
+                suggestedName: filename,
+                types: [{
+                  description: 'Gambar EXIF',
+                  accept: { [mime]: [`.${ext}`] }
+                }]
+              });
+              const writable = await handle.createWritable();
+              await writable.write(blob);
+              await writable.close();
+              showToast(`Tersimpan: ${filename}`);
+              return;
+            } catch (pickerErr) {
+              if (pickerErr && pickerErr.name === 'AbortError') return;
+            }
           }
 
-          const isFileProtocol = window.location.protocol === 'file:';
-          if (isFileProtocol) {
-            const aData = document.createElement('a');
-            aData.href = dataUrl;
-            aData.download = filename;
-            document.body.appendChild(aData);
-            aData.click();
-            document.body.removeChild(aData);
+          // 3. Jalur unduhan browser / WebView APK
+          triggerAnchorDownload(payload);
+          if (window.location.protocol === 'file:') {
+            openSaveModal(payload);
+          } else {
             showToast(`Disimpan: ${filename}`);
-            return;
           }
-
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          a.rel = 'noopener';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          setTimeout(() => URL.revokeObjectURL(url), 5000);
-          showToast(`Disimpan ke Galeri: ${filename}`);
         } catch (err) {
           console.error('Gagal menyimpan foto:', err);
-          showToast('Gagal menyimpan — coba tekan Bagikan lalu Simpan Gambar');
+          showToast('Gagal memproses foto untuk disimpan');
         }
       }
 
@@ -2924,26 +3044,24 @@
       }
 
       async function triggerNativeFileShare(payload) {
-        const file = new File([payload.blob], payload.filename, {
-          type: payload.mime,
-          lastModified: Date.now()
-        });
+        if (!navigator.share) return false;
+        const file = new File([payload.blob], payload.filename, { type: payload.mime });
 
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        if (navigator.canShare && !navigator.canShare({ files: [file] })) {
+          return false;
+        }
+
+        try {
+          await navigator.share({ files: [file] });
+          return true;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return true;
           await navigator.share({
-            files: [file]
+            files: [file],
+            title: 'EXIF Frame Studio'
           });
           return true;
         }
-
-        if (typeof navigator.share === 'function') {
-          await navigator.share({
-            files: [file]
-          });
-          return true;
-        }
-
-        return false;
       }
 
       async function shareCurrentPhoto() {
@@ -2951,30 +3069,31 @@
         if (!photo) return;
 
         showToast('Menyiapkan file gambar...');
-        try {
-          const { blob, mime, dataUrl } = await renderFullResolutionBlob();
-          const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
-          const safeBase = (photo.name || 'exif-frame').replace(/[^a-zA-Z0-9_-]/g, '_');
-          const filename = `${safeBase}-exif.${ext}`;
-          const payload = { blob, mime, dataUrl, filename };
+        await new Promise(r => requestAnimationFrame(r));
 
-          if (window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function') {
-            window.AndroidBridge.shareImage(dataUrl, filename);
-            return;
-          }
+        const { blob, mime, dataUrl } = await renderFullResolutionBlob();
+        const ext = state.exportFormat === 'png' ? 'png' : 'jpg';
+        const safeBase = (photo.name || 'exif-frame').replace(/[^a-zA-Z0-9_-]/g, '_');
+        const filename = `${safeBase}-exif.${ext}`;
+        const payload = { blob, mime, dataUrl, filename };
 
-          try {
-            const shared = await triggerNativeFileShare(payload);
-            if (shared) return;
-          } catch (err) {
-            if (err && err.name === 'AbortError') return;
-          }
-
-          openShareModal(payload);
-        } catch (err) {
-          console.error('Gagal menyiapkan share:', err);
-          showToast('Gagal menyiapkan gambar untuk dibagikan');
+        if (window.AndroidBridge && typeof window.AndroidBridge.shareImage === 'function') {
+          window.AndroidBridge.shareImage(dataUrl, filename);
+          return;
         }
+        if (window.Android && typeof window.Android.shareImage === 'function') {
+          window.Android.shareImage(dataUrl, filename);
+          return;
+        }
+
+        try {
+          const shared = await triggerNativeFileShare(payload);
+          if (shared) return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+
+        openShareModal(payload);
       }
 
       /* =====================================================================
@@ -3064,6 +3183,29 @@
       el.btnShare.addEventListener('click', shareCurrentPhoto);
       el.btnSave.addEventListener('click', saveCurrentPhoto);
 
+      // Save Modal Controls
+      el.btnCloseSaveModal.addEventListener('click', closeSaveModal);
+      el.saveModal.addEventListener('click', (e) => {
+        if (e.target === el.saveModal) closeSaveModal();
+      });
+
+      el.btnSaveViaSystem.addEventListener('click', async () => {
+        if (!cachedSavePayload) return;
+        try {
+          const ok = await triggerNativeFileShare(cachedSavePayload);
+          if (ok) closeSaveModal();
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+          showToast('Tekan & tahan gambar di atas lalu pilih "Simpan gambar"');
+        }
+      });
+
+      el.btnSaveDirectRetry.addEventListener('click', () => {
+        if (!cachedSavePayload) return;
+        triggerAnchorDownload(cachedSavePayload);
+        showToast(`Mengunduh ${cachedSavePayload.filename}...`);
+      });
+
       // Share Modal Controls
       el.btnCloseShareModal.addEventListener('click', closeShareModal);
       el.shareModal.addEventListener('click', (e) => {
@@ -3074,10 +3216,14 @@
         if (!cachedSharePayload) return;
         try {
           const ok = await triggerNativeFileShare(cachedSharePayload);
-          if (ok) closeShareModal();
+          if (ok) {
+            closeShareModal();
+          } else {
+            showToast('Tekan & tahan gambar di atas lalu pilih Bagikan');
+          }
         } catch (err) {
           if (err && err.name === 'AbortError') return;
-          showToast('Silakan tekan dan tahan gambar di atas untuk membagikan');
+          showToast('Tekan & tahan gambar di atas lalu pilih Bagikan');
         }
       });
 
@@ -3093,6 +3239,8 @@
         } catch (err) {
           const ta = document.createElement('textarea');
           ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
           document.body.appendChild(ta);
           ta.select();
           try {
@@ -3309,7 +3457,7 @@
         renderPreview();
       });
 
-      // TAB 4: Gaya & Logo Events
+      // TAB 4: Gaya & Logo Events (Collapsible)
       el.btnToggleBrandDrawer.addEventListener('click', () => {
         const isOpen = el.brandDrawer.classList.toggle('open');
         el.btnToggleBrandDrawer.classList.toggle('open', isOpen);
@@ -3322,7 +3470,7 @@
         el.brandLogoChoices.querySelectorAll('.brand-chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state.brandLogo = chip.dataset.brand;
-        el.activeBrandLabel.textContent = chip.textContent.trim();
+        el.activeBrandLabel.textContent = chip.dataset.label || chip.textContent.trim();
         renderPreview();
       });
 
