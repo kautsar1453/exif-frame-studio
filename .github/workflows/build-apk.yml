@@ -2,14 +2,14 @@ name: Build Android APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Kode Proyek
         uses: actions/checkout@v4
 
       - name: Setup Java 17
@@ -18,13 +18,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Siapkan Lisensi Android SDK
+        run: |
+          mkdir -p "$ANDROID_HOME/licenses"
+          printf "\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
+          printf "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
 
-      - name: Build Debug APK
+      - name: Kompilasi Debug APK
         run: gradle assembleDebug
 
-      - name: Upload APK Artifact
+      - name: Unggah File APK
         uses: actions/upload-artifact@v4
         with:
           name: EXIF-Frame-Studio-APK
